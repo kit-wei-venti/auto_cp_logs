@@ -49,3 +49,4 @@ for filename in list_bag_directory:
 
 print(os.listdir(path))
 print("copy paste done!")
+print("hello")
