@@ -70,4 +70,8 @@ for filename in list_bag_directory:
 print(os.listdir(path))
 print("copy paste done!")
 
+<<<<<<< HEAD
 print(total_files)
+=======
+print(total_files)
+>>>>>>> origin/main
