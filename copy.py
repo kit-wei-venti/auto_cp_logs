@@ -1,6 +1,7 @@
 import os
 import shutil
-
+import time
+from datetime import datetime
 
 
 
@@ -13,6 +14,7 @@ total_files = 0
 files_copied = 0
 
 create_folder = input("Name of folder to create: \n")
+starting_time = input("starting time: ")
 
 directory_ssd = os.getcwd()
 #print(directory_ssd)
@@ -70,9 +72,4 @@ for filename in list_bag_directory:
 print(os.listdir(path))
 print("copy paste done!")
 
-<<<<<<< HEAD
-print(total_files)
-=======
-print(total_files)
->>>>>>> origin/main
-print("bye")
+
