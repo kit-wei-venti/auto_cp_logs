@@ -18,3 +18,7 @@ pc_date_split = currentDate.split("/")
 pc_extract_date = int(pc_date_split[0])
 
 print(pc_extract_date)
+
+
+
+print("mx need to respect girls")
