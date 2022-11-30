@@ -31,9 +31,38 @@ path = os.path.join(directory_ssd + "/", create_folder)
 os.makedirs(path)
 
 
+currentDateAndTime = datetime.now()
+currentTime = currentDateAndTime.strftime("%H:%M:%S")
+currentDate = currentDateAndTime.strftime("%d/%m/%Y")
+pc_date_split = currentDate.split("/")
+pc_extract_date = int(pc_date_split[0])
+
+
+#def get_file_time():
+
 for filename in list_bag_directory:
     if filename.endswith('.bag'):   
-        no_bag_files = no_bag_files + 1
+             # Both the variables would contain time
+        # elapsed since EPOCH in float
+        ti_c = os.path.getctime(bag_directory + "/" + filename)
+        ti_m = os.path.getmtime(bag_directory + "/" + filename)
+        
+        # Converting the time in seconds to a timestamp
+        c_ti = time.ctime(ti_c)    #shows when it was created
+        m_ti = time.ctime(ti_m)    #shows when it was modified
+        
+        x = c_ti.split(" ")
+        y = x[3].split(":")
+        f = y[0]
+        k = x[2]
+        #a = int(starting_time)
+        a = int(starting_time)
+
+
+        #if a == int(f):
+        if int(k) == pc_extract_date and int(f) >= a:
+            no_bag_files = no_bag_files + 1
+
 
 for filename in list_chinese_txt_directory:
     if filename.endswith('txt'):
@@ -56,17 +85,40 @@ for filename in list_chinese_txt_directory:
 
 for filename in list_bag_directory:
     if filename.endswith('.bag'):
-        full_directory = path + "/" + filename
-        #print(full_directory)
-
-        bag_directory_full = bag_directory + "/" + filename
-        #print(bag_directory_full)
-
-        shutil.copy(bag_directory_full, full_directory)
-        files_copied = files_copied + 1
-        print(str(files_copied) + "/" + str(total_files))
 
 
+         # Both the variables would contain time
+        # elapsed since EPOCH in float
+        ti_c = os.path.getctime(bag_directory + "/" + filename)
+        ti_m = os.path.getmtime(bag_directory + "/" + filename)
+        
+        # Converting the time in seconds to a timestamp
+        c_ti = time.ctime(ti_c)    #shows when it was created
+        m_ti = time.ctime(ti_m)    #shows when it was modified
+        
+        x = c_ti.split(" ")
+        y = x[3].split(":")
+        f = y[0]
+        k = x[2]
+        #a = int(starting_time)
+        a = int(starting_time)
+
+
+        #if a == int(f):
+        if int(k) == pc_extract_date and int(f) >= a:
+            no_bag_files = no_bag_files + 1
+            full_directory = path + "/" + filename
+            #print(full_directory)
+
+            bag_directory_full = bag_directory + "/" + filename
+            #print(bag_directory_full)
+
+            shutil.copy(bag_directory_full, full_directory)
+            files_copied = files_copied + 1
+            print(str(files_copied) + "/" + str(total_files))
+
+            
+            #print("testing")
 
 
 print(os.listdir(path))

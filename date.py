@@ -12,6 +12,14 @@ starting_time = input("Enter starting time: ")
 bag_directory = r'/home/kitwei/golfcar/ftp/recorded_bags'
 list_bag_directory = os.listdir(bag_directory)
 
+currentDateAndTime = datetime.now()
+currentTime = currentDateAndTime.strftime("%H:%M:%S")
+currentDate = currentDateAndTime.strftime("%d/%m/%Y")
+pc_date_split = currentDate.split("/")
+pc_extract_date = int(pc_date_split[0])
+
+
+
 
 for filename in list_bag_directory:
     if filename.endswith('.bag'):
@@ -29,11 +37,21 @@ for filename in list_bag_directory:
         x = c_ti.split(" ")
         y = x[3].split(":")
         f = y[0]
+        k = x[2]
         #a = int(starting_time)
         a = int(starting_time)
         #print(list(map(int,y)))
         #if a == b:
             #print("test")
-        if a == int(f):
-            print(f)
-            print(c_ti)
+
+
+        
+        print(int(k))
+        #if int(k) == pc_extract_date:
+        #   print(int(f))
+        """
+            if a == int(f):
+                #print(f)
+                #print(c_ti)
+                print("hello")
+            """

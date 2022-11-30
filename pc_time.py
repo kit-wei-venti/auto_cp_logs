@@ -10,5 +10,11 @@ currentDateAndTime = datetime.now()
 
 
 currentTime = currentDateAndTime.strftime("%H:%M:%S")
-x = currentTime.split(":")
-print(x)
+currentDate = currentDateAndTime.strftime("%d/%m/%Y")
+pc_time_split = currentTime.split(":")
+#print(x)
+#print(currentTime)
+pc_date_split = currentDate.split("/")
+pc_extract_date = int(pc_date_split[0])
+
+print(pc_extract_date)
