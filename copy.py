@@ -37,8 +37,16 @@ currentDate = currentDateAndTime.strftime("%d/%m/%Y")
 pc_date_split = currentDate.split("/")
 pc_extract_date = int(pc_date_split[0])
 
+#################################################################### FUNCTIONS ########################################################################################
+
+
+
+
+
+
 
 #def get_file_time():
+####################################################################COUNT FILES#################################################################################
 
 for filename in list_bag_directory:
     if filename.endswith('.bag'):   
@@ -51,7 +59,7 @@ for filename in list_bag_directory:
         c_ti = time.ctime(ti_c)    #shows when it was created
         m_ti = time.ctime(ti_m)    #shows when it was modified
         
-        x = c_ti.split(" ")
+        x = c_ti.split()
         y = x[3].split(":")
         f = y[0]
         k = x[2]
@@ -62,13 +70,32 @@ for filename in list_bag_directory:
         #if a == int(f):
         if int(k) == pc_extract_date and int(f) >= a:
             no_bag_files = no_bag_files + 1
-
+            #print(no_bag_files)
+            total_files = no_bag_files + no_txt_files
 
 for filename in list_chinese_txt_directory:
     if filename.endswith('txt'):
-        no_txt_files = no_txt_files + 1
-        total_files = no_txt_files + no_bag_files
+        ti_c = os.path.getctime(chinese_txt_directory + "/" + filename)
+        ti_m = os.path.getmtime(chinese_txt_directory + "/" + filename)
+        
+        # Converting the time in seconds to a timestamp
+        c_ti = time.ctime(ti_c)    #shows when it was created
+        m_ti = time.ctime(ti_m)    #shows when it was modified
+        
+        x = c_ti.split()
+        y = x[3].split(":")
+        f = y[0]
+        k = x[2]
+        #a = int(starting_time)
+        a = int(starting_time)
 
+        if int(k) == pc_extract_date and int(f) >= a:
+            no_txt_files = no_txt_files + 1
+            total_files = no_bag_files + no_txt_files
+            
+
+
+####################################################################COUNT FILES#################################################################################
 
 
 
@@ -76,11 +103,25 @@ for filename in list_chinese_txt_directory:
 
 for filename in list_chinese_txt_directory:
     if filename.endswith('.txt'):
-        full_directory = path + "/" + filename
-        chinese_txt_directory_full = chinese_txt_directory + "/" + filename
-        shutil.copy(chinese_txt_directory_full, full_directory)
-        files_copied = files_copied + 1
-        print(str(files_copied) + "/" + str(total_files))
+        ti_c = os.path.getctime(chinese_txt_directory + "/" + filename)
+        ti_m = os.path.getmtime(chinese_txt_directory + "/" + filename)
+
+        c_ti = time.ctime(ti_c)    #shows when it was created
+        m_ti = time.ctime(ti_m)    #shows when it was modified
+        
+        x = c_ti.split()
+        y = x[3].split(":")
+        f = y[0]
+        k = x[2]
+        a = int(starting_time)
+
+        if int(k) == pc_extract_date and int(f) >= a:
+
+            full_directory = path + "/" + filename
+            chinese_txt_directory_full = chinese_txt_directory + "/" + filename
+            shutil.copy(chinese_txt_directory_full, full_directory)
+            files_copied = files_copied + 1
+            print(str(files_copied) + "/" + str(total_files))
 
 
 for filename in list_bag_directory:
@@ -96,17 +137,16 @@ for filename in list_bag_directory:
         c_ti = time.ctime(ti_c)    #shows when it was created
         m_ti = time.ctime(ti_m)    #shows when it was modified
         
-        x = c_ti.split(" ")
+        x = c_ti.split()
         y = x[3].split(":")
         f = y[0]
         k = x[2]
-        #a = int(starting_time)
         a = int(starting_time)
 
 
         #if a == int(f):
         if int(k) == pc_extract_date and int(f) >= a:
-            no_bag_files = no_bag_files + 1
+            #no_bag_files = no_bag_files + 1
             full_directory = path + "/" + filename
             #print(full_directory)
 
