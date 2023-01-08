@@ -1,167 +1,108 @@
 import os
 import shutil
 import time
+import sys
 from datetime import datetime
 
 
 
-keyword1 = ".bag"
-keyword2 = ".mp4"
-#list_file = " "
-no_bag_files = 0
-no_txt_files = 0
-total_files = 0
-files_copied = 0
+def main():
+    folder_name = sys.argv[1]
+    starting_time = sys.argv[2]
 
-create_folder = input("Name of folder to create: \n")
-starting_time = input("starting time: ")
+    create_new_folder(folder_name)
+    #print(create_new_folder)
 
-directory_ssd = os.getcwd()
-#print(directory_ssd)
-list_directory_ssd = os.listdir(directory_ssd)
+    #pass pc date into functions
+    #store_directory( extract_pc_time_date() [0])
+    
+    #count the no of bag files we wanna copy
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [0],
+                                                os.getcwd() + "/" + folder_name
+                                                )
 
-bag_directory = r'/home/kitwei/golfcar/ftp/recorded_bags'
-list_bag_directory = os.listdir(bag_directory)
-#print(list_bag_directory)
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [2],
+                                                os.getcwd() + "/" + folder_name
+                                                )
 
-chinese_txt_directory = r'/home/kitwei/venti/ftp'                                  #chinese txt files
-list_chinese_txt_directory = os.listdir(chinese_txt_directory)
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [0],
+                                                os.getcwd() + "/" + folder_name
+                                                )
+                                                )    
 
-path = os.path.join(directory_ssd + "/", create_folder)
-os.makedirs(path)
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [2],
+                                                os.getcwd() + "/" + folder_name
+                                                )
+                                                )
+ 
+def create_new_folder(f_name):
+    try:
+        ssd_dir = os.getcwd()
+        ssd_dir_ls = os.listdir(ssd_dir)
+        ssd_folder_path = os.path.join(ssd_dir + "/", f_name)
+        os.makedirs(ssd_folder_path)
+        new_folder_dir = ssd_dir + "/" + f_name
+        return f_name, new_folder_dir
+
+    except ImportError:
+        print("import error")
+
+    except IndexError:
+        print("did you forgot to enter something?")
+
+def store_directory(folder_date):
+    bag_directory = r'/home/kitwei/golfcar/ftp/recorded_bags/' + str(folder_date) + r'/default'
+    list_bag_directory = os.listdir(bag_directory)
+
+    log_directory = r'/home/kitwei/golfcar/ftp/logs/' + str(folder_date) 
+    list_log_directory = os.listdir(log_directory)
+
+    return bag_directory, list_bag_directory, log_directory, list_log_directory
 
 
-currentDateAndTime = datetime.now()
-currentTime = currentDateAndTime.strftime("%H:%M:%S")
-currentDate = currentDateAndTime.strftime("%d/%m/%Y")
-pc_date_split = currentDate.split("/")
-pc_extract_date = int(pc_date_split[0])
-
-############################################################################################################################################################################################################### FUNCTIONS ######################################################################################################################################################################################################################
-
-
+def extract_pc_time_date():
+    currentDateAndTime = datetime.now()
+    currentDate = currentDateAndTime.strftime("%d/%m/%Y")
+    pc_date_split = currentDate.split("/")
+    pc_date_correct_format = pc_date_split[2] + pc_date_split[1] + pc_date_split[0]
+    pc_extract_date = int(pc_date_split[0])
+    return str(pc_date_correct_format), pc_extract_date
 
 
-
-
-
-
-############################################################################################################################################################################################################### COUNT FILES ####################################################################################################################################################################################################################
-
-for filename in list_bag_directory:
-    if filename.endswith('.bag'):   
-             # Both the variables would contain time
-        # elapsed since EPOCH in float
-        ti_c = os.path.getctime(bag_directory + "/" + filename)
-        ti_m = os.path.getmtime(bag_directory + "/" + filename)
-        
-        # Converting the time in seconds to a timestamp
-        c_ti = time.ctime(ti_c)    #shows when it was created
-        m_ti = time.ctime(ti_m)    #shows when it was modified
-        
-        x = c_ti.split()
+def filter_file_time_created(passindir, passinpcdate, passintimeentered, passindir2, ps_dir):
+    no_bag_files = 0
+    filtered_filenames = []
+    for filename in passindir:
+        ti_m = os.path.getmtime(passindir2 + "/" + filename)
+        m_ti = time.ctime(ti_m)    #shows when it was created
+        x = m_ti.split()
         y = x[3].split(":")
         f = y[0]
         k = x[2]
-        #a = int(starting_time)
-        a = int(starting_time)
+        if int(k) == int(passinpcdate) and int(f) >= int(passintimeentered):
+            no_bag_files += int(1)
+            shutil.copy(passindir2 + "/" + filename, ps_dir + "/" + filename)
+            filtered_filenames.append(filename)
 
-
-        #if a == int(f):
-        if int(k) == pc_extract_date and int(f) >= a:
-            no_bag_files = no_bag_files + 1
-            #print(no_bag_files)
-            total_files = no_bag_files + no_txt_files
-
-for filename in list_chinese_txt_directory:
-    if filename.endswith('txt'):
-        ti_c = os.path.getctime(chinese_txt_directory + "/" + filename)
-        ti_m = os.path.getmtime(chinese_txt_directory + "/" + filename)
-        
-        # Converting the time in seconds to a timestamp
-        c_ti = time.ctime(ti_c)    #shows when it was created
-        m_ti = time.ctime(ti_m)    #shows when it was modified
-        
-        x = c_ti.split()
-        y = x[3].split(":")
-        f = y[0]
-        k = x[2]
-        #a = int(starting_time)
-        a = int(starting_time)
-
-        if int(k) == pc_extract_date and int(f) >= a:
-            no_txt_files = no_txt_files + 1
-            total_files = no_bag_files + no_txt_files
-            
-
-
-####################################################################COUNT FILES#################################################################################
+    return filtered_filenames, str(no_bag_files) + "files"
 
 
 
+def multiply(n):
+    return n * n
 
 
-for filename in list_chinese_txt_directory:
-    if filename.endswith('.txt'):
-        ti_c = os.path.getctime(chinese_txt_directory + "/" + filename)
-        ti_m = os.path.getmtime(chinese_txt_directory + "/" + filename)
-
-        c_ti = time.ctime(ti_c)    #shows when it was created
-        m_ti = time.ctime(ti_m)    #shows when it was modified
-        
-        x = c_ti.split()
-        y = x[3].split(":")
-        f = y[0]
-        k = x[2]
-        a = int(starting_time)
-
-        if int(k) == pc_extract_date and int(f) >= a:
-
-            full_directory = path + "/" + filename
-            chinese_txt_directory_full = chinese_txt_directory + "/" + filename
-            shutil.copy(chinese_txt_directory_full, full_directory)
-            files_copied = files_copied + 1
-            print(str(files_copied) + "/" + str(total_files))
-
-
-for filename in list_bag_directory:
-    if filename.endswith('.bag'):
-
-
-         # Both the variables would contain time
-        # elapsed since EPOCH in float
-        ti_c = os.path.getctime(bag_directory + "/" + filename)
-        ti_m = os.path.getmtime(bag_directory + "/" + filename)
-        
-        # Converting the time in seconds to a timestamp
-        c_ti = time.ctime(ti_c)    #shows when it was created
-        m_ti = time.ctime(ti_m)    #shows when it was modified
-        
-        x = c_ti.split()
-        y = x[3].split(":")
-        f = y[0]
-        k = x[2]
-        a = int(starting_time)
-
-
-        #if a == int(f):
-        if int(k) == pc_extract_date and int(f) >= a:
-            #no_bag_files = no_bag_files + 1
-            full_directory = path + "/" + filename
-            #print(full_directory)
-
-            bag_directory_full = bag_directory + "/" + filename
-            #print(bag_directory_full)
-
-            shutil.copy(bag_directory_full, full_directory)
-            files_copied = files_copied + 1
-            print(str(files_copied) + "/" + str(total_files))
-
-            
-            #print("testing")
-
-
-print(os.listdir(path))
-print("copy paste done!")
-
-
+if __name__ == "__main__":
+    main()
