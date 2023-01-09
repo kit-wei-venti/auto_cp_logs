@@ -9,8 +9,11 @@ from datetime import datetime
 def main():
     folder_name = sys.argv[1]
     starting_time = sys.argv[2]
+    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video  = create_new_folder(folder_name)
+ 
 
-    create_new_folder(folder_name)
+
+    #create_new_folder(folder_name)
     #print(create_new_folder)
 
     #pass pc date into functions
@@ -21,21 +24,37 @@ def main():
                                                 extract_pc_time_date()[1],
                                                 starting_time,
                                                 store_directory( extract_pc_time_date()[0]) [0],
-                                                os.getcwd() + "/" + folder_name
+                                                ssd_folder_path_rosbags
                                                 )
 
     filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
                                                 store_directory( extract_pc_time_date()[0]) [2],
-                                                os.getcwd() + "/" + folder_name
+                                                ssd_folder_path_logs
                                                 )
+
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [4],
+                                                ssd_folder_path_video
+                                                )
+
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [6],
+                                                ssd_folder_path_can
+                                                )
+
+
 
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
                                                 store_directory( extract_pc_time_date()[0]) [0],
-                                                os.getcwd() + "/" + folder_name
+                                                ssd_folder_path_rosbags
                                                 )
                                                 )    
 
@@ -43,10 +62,27 @@ def main():
                                                 extract_pc_time_date()[1],
                                                 starting_time,
                                                 store_directory( extract_pc_time_date()[0]) [2],
-                                                os.getcwd() + "/" + folder_name
+                                                ssd_folder_path_logs
+                                                )
+                                                )
+
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [4],
+                                                ssd_folder_path_video
+                                                )
+                                                )
+
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [6],
+                                                ssd_folder_path_can
                                                 )
                                                 )
  
+
 def create_new_folder(f_name):
     try:
         ssd_dir = os.getcwd()
@@ -54,7 +90,20 @@ def create_new_folder(f_name):
         ssd_folder_path = os.path.join(ssd_dir + "/", f_name)
         os.makedirs(ssd_folder_path)
         new_folder_dir = ssd_dir + "/" + f_name
-        return f_name, new_folder_dir
+
+        ssd_folder_path_rosbags = os.path.join(new_folder_dir + "/", "rosbags" + "/" + "default")
+        os.makedirs(ssd_folder_path_rosbags)
+
+        ssd_folder_path_can = os.path.join(new_folder_dir + "/", "can")
+        os.makedirs(ssd_folder_path_can)
+
+        ssd_folder_path_logs = os.path.join(new_folder_dir + "/", "logs")
+        os.makedirs(ssd_folder_path_logs)
+
+        ssd_folder_path_video = os.path.join(new_folder_dir + "/", "video")
+        os.makedirs(ssd_folder_path_video)
+
+        return f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video
 
     except ImportError:
         print("import error")
@@ -62,14 +111,22 @@ def create_new_folder(f_name):
     except IndexError:
         print("did you forgot to enter something?")
 
+
 def store_directory(folder_date):
-    bag_directory = r'/home/kitwei/golfcar/ftp/recorded_bags/' + str(folder_date) + r'/default'
+    bag_directory = r'/home/kitwei/golfcar/ftp/rosbags/' + str(folder_date) + r'/default'
     list_bag_directory = os.listdir(bag_directory)
 
     log_directory = r'/home/kitwei/golfcar/ftp/logs/' + str(folder_date) 
     list_log_directory = os.listdir(log_directory)
 
-    return bag_directory, list_bag_directory, log_directory, list_log_directory
+    video_directory = r'/home/kitwei/golfcar/ftp/video/' + str(folder_date) 
+    list_video_directory = os.listdir(video_directory)
+
+    can_directory = r'/home/kitwei/venti/ftp/can/' + str(folder_date) 
+    list_can_directory = os.listdir(can_directory)
+
+
+    return bag_directory, list_bag_directory, log_directory, list_log_directory, video_directory, list_video_directory, can_directory, list_can_directory
 
 
 def extract_pc_time_date():
