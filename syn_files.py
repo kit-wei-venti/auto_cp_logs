@@ -48,7 +48,22 @@ def main():
                                                 ssd_folder_path_can
                                                 )
 
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [8],
+                                                ssd_folder_path_logs
+                                                )
 
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [10],
+                                                ssd_folder_path_logs
+                                                )
+
+
+############################################## PRINT INFOO ##########################################
 
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
                                                 extract_pc_time_date()[1],
@@ -81,7 +96,22 @@ def main():
                                                 ssd_folder_path_can
                                                 )
                                                 )
- 
+
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [8],
+                                                ssd_folder_path_logs
+                                                )
+                                                )
+    
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [10],
+                                                ssd_folder_path_logs
+                                                )
+                                                )
 
 def create_new_folder(f_name):
     try:
@@ -125,8 +155,13 @@ def store_directory(folder_date):
     can_directory = r'/home/kitwei/venti/ftp/can/' + str(folder_date) 
     list_can_directory = os.listdir(can_directory)
 
+    secondpc_ftp_log_directory = r'/home/kitwei/golfcar/ftp'
+    list_secondpc_ftp_log_directory = os.listdir(secondpc_ftp_log_directory)
 
-    return bag_directory, list_bag_directory, log_directory, list_log_directory, video_directory, list_video_directory, can_directory, list_can_directory
+    mainpc_log_directory = r'/home/kitwei/venti/ftp/logs/' + str(folder_date) 
+    list_mainpc_log_directory = os.listdir(mainpc_log_directory)
+
+    return bag_directory, list_bag_directory, log_directory, list_log_directory, video_directory, list_video_directory, can_directory, list_can_directory, secondpc_ftp_log_directory, list_secondpc_ftp_log_directory, mainpc_log_directory, list_mainpc_log_directory
 
 
 def extract_pc_time_date():
@@ -142,16 +177,17 @@ def filter_file_time_created(passindir, passinpcdate, passintimeentered, passind
     no_bag_files = 0
     filtered_filenames = []
     for filename in passindir:
-        ti_m = os.path.getmtime(passindir2 + "/" + filename)
-        m_ti = time.ctime(ti_m)    #shows when it was created
-        x = m_ti.split()
-        y = x[3].split(":")
-        f = y[0]
-        k = x[2]
-        if int(k) == int(passinpcdate) and int(f) >= int(passintimeentered):
-            no_bag_files += int(1)
-            shutil.copy(passindir2 + "/" + filename, ps_dir + "/" + filename)
-            filtered_filenames.append(filename)
+        if os.path.isfile(os.path.join(passindir2 + "/", filename)):
+            ti_m = os.path.getmtime(passindir2 + "/" + filename)
+            m_ti = time.ctime(ti_m)    #shows when it was created
+            x = m_ti.split()
+            y = x[3].split(":")
+            f = y[0]
+            k = x[2]
+            if int(k) == int(passinpcdate) and int(f) >= int(passintimeentered):
+                no_bag_files += int(1)
+                shutil.copy(passindir2 + "/" + filename, ps_dir + "/" + filename)
+                filtered_filenames.append(filename)
 
     return filtered_filenames, str(no_bag_files) + "files"
 
