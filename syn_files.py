@@ -9,7 +9,8 @@ from datetime import datetime
 def main():
     folder_name = sys.argv[1]
     starting_time = sys.argv[2]
-    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video  = create_new_folder(folder_name)
+    extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] )
+    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video  = create_new_folder(folder_name, extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] ))
  
 
 
@@ -59,6 +60,21 @@ def main():
                                                 extract_pc_time_date()[1],
                                                 starting_time,
                                                 store_directory( extract_pc_time_date()[0]) [10],
+                                                ssd_folder_path_logs
+                                                )
+
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [12],
+                                                ssd_folder_path_logs
+                                                )
+
+    
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [14],
                                                 ssd_folder_path_logs
                                                 )
 
@@ -113,13 +129,30 @@ def main():
                                                 )
                                                 )
 
-def create_new_folder(f_name):
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [12],
+                                                ssd_folder_path_logs
+                                                )
+                                                )
+
+    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [14],
+                                                ssd_folder_path_logs
+                                                )
+                                                )
+
+
+def create_new_folder(f_name, apm_no):
     try:
         ssd_dir = os.getcwd()
         ssd_dir_ls = os.listdir(ssd_dir)
         ssd_folder_path = os.path.join(ssd_dir + "/", f_name)
         os.makedirs(ssd_folder_path)
-        new_folder_dir = ssd_dir + "/" + f_name
+        new_folder_dir = ssd_dir + "/" + f_name + "/" + apm_no
 
         ssd_folder_path_rosbags = os.path.join(new_folder_dir + "/", "rosbags" + "/" + "default")
         os.makedirs(ssd_folder_path_rosbags)
@@ -143,7 +176,7 @@ def create_new_folder(f_name):
 
 
 def store_directory(folder_date):
-    bag_directory = r'/home/kitwei/golfcar/ftp/rosbags/' + str(folder_date) + r'/default'
+    bag_directory = r'/home/kitwei/golfcar/ftp/recorded_bags/' + str(folder_date) + r'/default'
     list_bag_directory = os.listdir(bag_directory)
 
     log_directory = r'/home/kitwei/golfcar/ftp/logs/' + str(folder_date) 
@@ -161,7 +194,13 @@ def store_directory(folder_date):
     mainpc_log_directory = r'/home/kitwei/run/user/1000/gvfs/sftp:host=192.168.1.10/home/venti/ftp/logs/' + str(folder_date) 
     list_mainpc_log_directory = os.listdir(mainpc_log_directory)
 
-    return bag_directory, list_bag_directory, log_directory, list_log_directory, video_directory, list_video_directory, can_directory, list_can_directory, secondpc_ftp_log_directory, list_secondpc_ftp_log_directory, mainpc_log_directory, list_mainpc_log_directory
+    mainpc_ftp_log_directory = r'/home/kitwei/run/user/1000/gvfs/sftp:host=192.168.1.10/home/venti/ftp'
+    list_mainpc_ftp_log_directory = os.listdir(mainpc_ftp_log_directory)
+
+    mainpc_avcs_directory = r'/home/kitwei/run/user/1000/gvfs/sftp:host=192.168.1.10/home/venti/ftp/avcs/' + str(folder_date) 
+    list_mainpc_avcs_directory = os.listdir(mainpc_avcs_directory)
+
+    return bag_directory, list_bag_directory, log_directory, list_log_directory, video_directory, list_video_directory, can_directory, list_can_directory, secondpc_ftp_log_directory, list_secondpc_ftp_log_directory, mainpc_log_directory, list_mainpc_log_directory, mainpc_ftp_log_directory, list_mainpc_ftp_log_directory, mainpc_avcs_directory, list_mainpc_avcs_directory
 
 
 def extract_pc_time_date():
@@ -191,6 +230,11 @@ def filter_file_time_created(passindir, passinpcdate, passintimeentered, passind
 
     return filtered_filenames, str(no_bag_files) + "files"
 
+
+def extract_apm_no(list_bag_directory):
+    for filename in list_bag_directory:
+        apm_no = filename.split("_")
+    return str(apm_no[0])
 
 
 def multiply(n):
