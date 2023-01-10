@@ -152,13 +152,13 @@ def store_directory(folder_date):
     video_directory = r'/home/kitwei/golfcar/ftp/video/' + str(folder_date) 
     list_video_directory = os.listdir(video_directory)
 
-    can_directory = r'/home/kitwei/venti/ftp/can/' + str(folder_date) 
+    can_directory = r'/home/kitwei/run/user/1000/gvfs/sftp:host=192.168.1.10/home/venti/ftp/can/' + str(folder_date) 
     list_can_directory = os.listdir(can_directory)
 
     secondpc_ftp_log_directory = r'/home/kitwei/golfcar/ftp'
     list_secondpc_ftp_log_directory = os.listdir(secondpc_ftp_log_directory)
 
-    mainpc_log_directory = r'/home/kitwei/venti/ftp/logs/' + str(folder_date) 
+    mainpc_log_directory = r'/home/kitwei/run/user/1000/gvfs/sftp:host=192.168.1.10/home/venti/ftp/logs/' + str(folder_date) 
     list_mainpc_log_directory = os.listdir(mainpc_log_directory)
 
     return bag_directory, list_bag_directory, log_directory, list_log_directory, video_directory, list_video_directory, can_directory, list_can_directory, secondpc_ftp_log_directory, list_secondpc_ftp_log_directory, mainpc_log_directory, list_mainpc_log_directory
