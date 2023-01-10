@@ -10,10 +10,14 @@ def main():
     folder_name = sys.argv[1]
     starting_time = sys.argv[2]
     extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] )
-    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video  = create_new_folder(folder_name, extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] ))
+    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video  = create_new_folder(
+                                                                                                                        folder_name, 
+                                                                                                                        extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] )
+                                                                                                                        )
  
 
-
+    print("COPYING IN PROGRESS...\n")
+    
     #create_new_folder(folder_name)
     #print(create_new_folder)
 
@@ -27,60 +31,7 @@ def main():
                                                 store_directory( extract_pc_time_date()[0]) [0],
                                                 ssd_folder_path_rosbags
                                                 )
-
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [2],
-                                                ssd_folder_path_logs
-                                                )
-
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [4],
-                                                ssd_folder_path_video
-                                                )
-
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [6],
-                                                ssd_folder_path_can
-                                                )
-
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [8],
-                                                ssd_folder_path_logs
-                                                )
-
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [10],
-                                                ssd_folder_path_logs
-                                                )
-
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [12],
-                                                ssd_folder_path_logs
-                                                )
-
     
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [14],
-                                                ssd_folder_path_logs
-                                                )
-
-
-############################################## PRINT INFOO ##########################################
-
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
@@ -88,6 +39,13 @@ def main():
                                                 ssd_folder_path_rosbags
                                                 )
                                                 )    
+    ###############################################################################################                                            
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [2],
+                                                ssd_folder_path_logs
+                                                )
 
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
                                                 extract_pc_time_date()[1],
@@ -96,7 +54,14 @@ def main():
                                                 ssd_folder_path_logs
                                                 )
                                                 )
-
+    ###############################################################################################
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [4],
+                                                ssd_folder_path_video
+                                                )
+    
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
@@ -104,7 +69,14 @@ def main():
                                                 ssd_folder_path_video
                                                 )
                                                 )
-
+    ############################################################################################
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [6],
+                                                ssd_folder_path_can
+                                                )
+    
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
@@ -112,7 +84,14 @@ def main():
                                                 ssd_folder_path_can
                                                 )
                                                 )
-
+    ############################################################################################
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [8],
+                                                ssd_folder_path_logs
+                                                )
+    
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
@@ -120,13 +99,27 @@ def main():
                                                 ssd_folder_path_logs
                                                 )
                                                 )
-    
+    ###############################################################################################
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [10],
+                                                ssd_folder_path_logs
+                                                )
+
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
                                                 store_directory( extract_pc_time_date()[0]) [10],
                                                 ssd_folder_path_logs
                                                 )
+                                                )
+    #############################################################################################
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [12],
+                                                ssd_folder_path_logs
                                                 )
 
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
@@ -136,6 +129,13 @@ def main():
                                                 ssd_folder_path_logs
                                                 )
                                                 )
+    ##############################################################################################
+    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
+                                                extract_pc_time_date()[1],
+                                                starting_time,
+                                                store_directory( extract_pc_time_date()[0]) [14],
+                                                ssd_folder_path_logs
+                                                )
 
     print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
                                                 extract_pc_time_date()[1],
@@ -144,6 +144,22 @@ def main():
                                                 ssd_folder_path_logs
                                                 )
                                                 )
+
+##############################################                               END OF MAIN FUNC                          ##########################################
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+
 
 
 def create_new_folder(f_name, apm_no):

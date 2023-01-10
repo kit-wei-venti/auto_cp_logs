@@ -1,5 +1,6 @@
-from syn_files import create_new_folder, filter_file_time_created, extract_pc_time_date, multiply, store_directory
+from syn_files import create_new_folder, filter_file_time_created, extract_pc_time_date, multiply, store_directory, extract_apm_no
 import os
+
 
 def test_create_new_folder():
     assert create_new_folder("igg")[0] == "igg"
@@ -23,4 +24,9 @@ def test_multiply():
 
 def test_dir():
     assert store_directory("20230108")[0] == r'/home/kitwei/golfcar/ftp/recorded_bags/20230108/default'
-    
+
+
+def test_apm_no():
+    assert extract_apm_no(list_bag_directory = os.listdir(r'/home/kitwei/golfcar/ftp/recorded_bags/20230110/default')) == "PSA8374"
+
+
