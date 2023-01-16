@@ -15,6 +15,7 @@ def main():
     mainpc_ipaddress = get_mainpc_ip_address("kitwei-strix15")
     extract_apm_no(store_directory( extract_pc_time_date()[0], mainpc_ipaddress) [1] )
     f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video, ssd_folder_path_avcs  = create_new_folder(
+                                                                                                                                                find_ssd_name_and_dir(),
                                                                                                                                                 folder_name, 
                                                                                                                                                 extract_apm_no(store_directory( extract_pc_time_date()[0], mainpc_ipaddress) [1] )
                                                                                                                                                 )
@@ -120,13 +121,16 @@ def main():
 
 
 
-def create_new_folder(f_name, apm_no):
+def create_new_folder(ssd_directory, f_name, apm_no):
     try:
-        ssd_dir = os.getcwd()
-        ssd_dir_ls = os.listdir(ssd_dir)
-        ssd_folder_path = os.path.join(ssd_dir + "/", f_name)
+        # find_ssd_name = r'/media/kitwei'
+        # list_find_ssd_name = os.listdir(find_ssd_name)
+        # ssd_dir = find_ssd_name + "/" + list_find_ssd_name[0]
+
+        ssd_folder_path = os.path.join(ssd_directory + "/" + f_name)
         os.makedirs(ssd_folder_path)
-        new_folder_dir = ssd_dir + "/" + f_name + "/" + apm_no
+        new_folder_dir = ssd_directory + "/" + f_name + "/" + apm_no
+
 
         ssd_folder_path_rosbags = os.path.join(new_folder_dir + "/", "rosbags" + "/" + "default")
         os.makedirs(ssd_folder_path_rosbags)
@@ -219,6 +223,13 @@ def extract_apm_no(list_bag_directory):
 def get_mainpc_ip_address(hostname):
     IpAddress = socket.gethostbyname(hostname)
     return IpAddress
+
+
+def find_ssd_name_and_dir():
+    find_ssd_name = r'/media/kitwei'
+    list_find_ssd_name = os.listdir(find_ssd_name)
+    ssd_dir = find_ssd_name + "/" + list_find_ssd_name[0]
+    return ssd_dir
 
 
 def multiply(n):
