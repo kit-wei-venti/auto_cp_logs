@@ -10,7 +10,7 @@ def main():
     folder_name = sys.argv[1]
     starting_time = sys.argv[2]
     extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] )
-    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video  = create_new_folder(
+    f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video, ssd_folder_path_avcs  = create_new_folder(
                                                                                                                         folder_name, 
                                                                                                                         extract_apm_no(store_directory( extract_pc_time_date()[0]) [1] )
                                                                                                                         )
@@ -18,135 +18,213 @@ def main():
 
     print("COPYING IN PROGRESS...\n")
     
-    #create_new_folder(folder_name)
-    #print(create_new_folder)
 
-    #pass pc date into functions
-    #store_directory( extract_pc_time_date() [0])
     
     #count the no of bag files we wanna copy
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [0],
+    #                                             ssd_folder_path_rosbags,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    bags_copied, no_bags_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [0],
-                                                ssd_folder_path_rosbags
+                                                store_directory( extract_pc_time_date()[0]) [0], #
+                                                ssd_folder_path_rosbags,
+                                                extract_pc_time_date()[2]
                                                 )
-    
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [0],
-                                                ssd_folder_path_rosbags
-                                                )
-                                                )    
+    print(bags_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [1], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [0], #
+    #                                             ssd_folder_path_rosbags,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0] 
+    #                                             )    
     ###############################################################################################                                            
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [2],
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    secondpc_logs_copied, no_secondpc_logs_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [2],
-                                                ssd_folder_path_logs
+                                                store_directory( extract_pc_time_date()[0]) [2], ##
+                                                ssd_folder_path_logs,
+                                                extract_pc_time_date()[2]
                                                 )
-
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [2],
-                                                ssd_folder_path_logs
-                                                )
-                                                )
+    print(secondpc_logs_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [3], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [2], ##
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
     ###############################################################################################
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [4],
+    #                                             ssd_folder_path_video,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    video_copied, no_video_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [4],
-                                                ssd_folder_path_video
+                                                store_directory( extract_pc_time_date()[0]) [4], ###
+                                                ssd_folder_path_video,
+                                                extract_pc_time_date()[2]
                                                 )
-    
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [4],
-                                                ssd_folder_path_video
-                                                )
-                                                )
+    print(video_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [5], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [4], ###
+    #                                             ssd_folder_path_video,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
     ############################################################################################
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [6],
+    #                                             ssd_folder_path_can,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    mainpc_can_copied, no_mainpc_can_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [6],
-                                                ssd_folder_path_can
+                                                store_directory( extract_pc_time_date()[0]) [6], ####
+                                                ssd_folder_path_can,
+                                                extract_pc_time_date()[2]
                                                 )
-    
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [6],
-                                                ssd_folder_path_can
-                                                )
-                                                )
+    print(mainpc_can_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [7], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [6], ####
+    #                                             ssd_folder_path_can,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
     ############################################################################################
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [8],
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    secondpc_ftp_logs_copied, no_secondpc_ftp_logs_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [8],
-                                                ssd_folder_path_logs
+                                                store_directory( extract_pc_time_date()[0]) [8], #####
+                                                ssd_folder_path_logs,
+                                                extract_pc_time_date()[2]
                                                 )
-    
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [8],
-                                                ssd_folder_path_logs
-                                                )
-                                                )
+    print(secondpc_ftp_logs_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [9], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [8], #####
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
     ###############################################################################################
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [10],
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    mainpc_logs_copied, no_mainpc_logs_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [10],
-                                                ssd_folder_path_logs
+                                                store_directory( extract_pc_time_date()[0]) [10], ### ###
+                                                ssd_folder_path_logs,
+                                                extract_pc_time_date()[2]
                                                 )
-
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [10],
-                                                ssd_folder_path_logs
-                                                )
-                                                )
+    print(mainpc_logs_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [11], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [10], ### ###
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
     #############################################################################################
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [12],
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+    mainpc_ftp_logs_copied, no_mainpc_ftp_logs_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [12],
-                                                ssd_folder_path_logs
+                                                store_directory( extract_pc_time_date()[0]) [12], ### ### #
+                                                ssd_folder_path_logs,
+                                                extract_pc_time_date()[2]
                                                 )
-
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [12],
-                                                ssd_folder_path_logs
-                                                )
-                                                )
+    print(mainpc_ftp_logs_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [13], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [12], ### ### #
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
     ##############################################################################################
-    filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
+    # filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [14],
+    #                                             ssd_folder_path_logs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )
+                                                
+    mainpc_avcs_copied, no_mainpc_avcs_copied = filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
                                                 extract_pc_time_date()[1],
                                                 starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [14],
-                                                ssd_folder_path_logs
+                                                store_directory( extract_pc_time_date()[0]) [14],### ### ##
+                                                ssd_folder_path_avcs,
+                                                extract_pc_time_date()[2]
                                                 )
-
-    print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
-                                                extract_pc_time_date()[1],
-                                                starting_time,
-                                                store_directory( extract_pc_time_date()[0]) [14],
-                                                ssd_folder_path_logs
-                                                )
-                                                )
-
+    print(mainpc_avcs_copied)
+    print("")
+    # print(filter_file_time_created( store_directory( extract_pc_time_date()[0]) [15], 
+    #                                             extract_pc_time_date()[1],
+    #                                             starting_time,
+    #                                             store_directory( extract_pc_time_date()[0]) [14],### ### ##
+    #                                             ssd_folder_path_avcs,
+    #                                             extract_pc_time_date()[2]
+    #                                             )[0]
+    #                                             )
+    ######################################### TOTAL FILES ###########################################
+    
 ##############################################                               END OF MAIN FUNC                          ##########################################
-
+    print(str(no_bags_copied + no_secondpc_logs_copied + no_video_copied + no_mainpc_can_copied + no_secondpc_ftp_logs_copied + no_mainpc_logs_copied + no_mainpc_ftp_logs_copied + no_mainpc_avcs_copied) + " files copied in total !")
 
 
 
@@ -182,7 +260,9 @@ def create_new_folder(f_name, apm_no):
         ssd_folder_path_video = os.path.join(new_folder_dir + "/", "video")
         os.makedirs(ssd_folder_path_video)
 
-        return f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video
+        ssd_folder_path_avcs = os.path.join(new_folder_dir + "/", "avcs")
+        os.makedirs(ssd_folder_path_avcs)                              #need change
+        return f_name, new_folder_dir, ssd_folder_path_rosbags, ssd_folder_path_can, ssd_folder_path_logs, ssd_folder_path_video, ssd_folder_path_avcs
 
     except ImportError:
         print("import error")
@@ -222,13 +302,16 @@ def store_directory(folder_date):
 def extract_pc_time_date():
     currentDateAndTime = datetime.now()
     currentDate = currentDateAndTime.strftime("%d/%m/%Y")
+    currentTime = currentDateAndTime.strftime("%H:%M:%S")
+
+    pc_time_split = currentTime.split(":")
     pc_date_split = currentDate.split("/")
     pc_date_correct_format = pc_date_split[2] + pc_date_split[1] + pc_date_split[0]
     pc_extract_date = int(pc_date_split[0])
-    return str(pc_date_correct_format), pc_extract_date
+    return str(pc_date_correct_format), pc_extract_date, pc_time_split[0]
 
 
-def filter_file_time_created(passindir, passinpcdate, passintimeentered, passindir2, ps_dir):
+def filter_file_time_created(passindir, passinpcdate, passintimeentered, passindir2, ps_dir, current_hour):
     no_bag_files = 0
     filtered_filenames = []
     for filename in passindir:
@@ -239,12 +322,12 @@ def filter_file_time_created(passindir, passinpcdate, passintimeentered, passind
             y = x[3].split(":")
             f = y[0]
             k = x[2]
-            if int(k) == int(passinpcdate) and int(f) >= int(passintimeentered):
+            if int(k) == int(passinpcdate) and int(f) >= int(passintimeentered) and int(current_hour) >= int(f):
                 no_bag_files += int(1)
                 shutil.copy(passindir2 + "/" + filename, ps_dir + "/" + filename)
                 filtered_filenames.append(filename)
 
-    return filtered_filenames, str(no_bag_files) + "files"
+    return filtered_filenames, int(no_bag_files)
 
 
 def extract_apm_no(list_bag_directory):
@@ -259,3 +342,4 @@ def multiply(n):
 
 if __name__ == "__main__":
     main()
+
