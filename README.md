@@ -17,4 +17,19 @@ Example: my ticket number is TG-455, and i started my test at 9:40am. I will run
 ```
 python3 autonomous_logs.py TG-455 9
 ```
+<br>
+<br>
 
+### Run from Bash script:
+
+```
+./autonomous_logs.py $TICKET_NUMBER $STARTING_TIME_24_HR_FORMAT_ONLY_ENTER_HR
+```
+Example: my ticket number is TG-455, and i started my test at 1:30pm. I will run it in this way:
+```
+./autonomous_logs.py TG-455 13
+```
+Example: my ticket number is TG-455, and i started my test at 9:40am. I will run it this way:
+```
+./autonomous_logs.py TG-455 9
+```
