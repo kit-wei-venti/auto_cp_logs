@@ -3,7 +3,7 @@
 
 ## What it copy?
 It copies all the files created when doing **AVCS TEST**.\
-Eg: Terminal logs, bag, can, txt files ...
+Eg: Terminal logs, bag, can, txt, avcs files ...
 <br>
 
 ## How to use?
