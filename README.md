@@ -1,7 +1,7 @@
 # We Copy Logs For You ...
 
 ## How to use?
-There are 2 ways to run this script. Run it either from the Bash/Python script.markdown read
+There are 2 ways to run this script. Run it either from the Bash/Python script!
 <br>
 <br>
 
