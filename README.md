@@ -2,7 +2,7 @@
 <br>
 
 ## What it copy?
-It copies all the files created when doing **AVCS TEST**.
+It copies all the files created when doing **AVCS TEST**.\
 Eg: Terminal logs, bag, can, txt files ...
 <br>
 
